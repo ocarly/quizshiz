@@ -2,7 +2,7 @@ const questions = [
     {
         question: "What does 'DOM' stand for in JavaScript?",
         options: ["Document Object Model", "Data Object Model", "Database Object Model", "Document Oriented Model"],
-        correctAnswer: "Data Object Model"
+        correctAnswer: "Document Object Model"
     },
     {
         question: "Which method is used to add new elements to an array in JavaScript?",
@@ -31,7 +31,6 @@ const nextButton = document.getElementById('next-button');
 const inputThings = document.querySelectorAll(`input[name="answer"]`)
 const userAnswer = document.querySelector(`input[value]`)
 
-
 function displayQuestion() {
     if (currentQuestion < questions.length) {
         questionElement.textContent = questions[currentQuestion].question;
@@ -40,30 +39,41 @@ function displayQuestion() {
         const labels = document.querySelectorAll('.option-label');
         labels.forEach((label, index) => {
             label.textContent = options[index];
-            const radioInput = label.querySelector('input[type="radio"]');
-            radioInput.addEventListener('change', () => {
-                const selectedAnswer = radioInput.value;
-                const correctAnswer = questions[currentQuestion].correctAnswer;
-                
-                if (selectedAnswer === correctAnswer) {
-                    // Increase the score when the answer is correct
-                    score++;
-                } else {
-                    // Deduct ten seconds from the timer when the answer is wrong
-                    timer -= 10;
-                }
-                
-                // Move to the next question
-                currentQuestion++;
-                displayQuestion();
-            });
         });
     } else {
         endQuiz();
     }
 }
 
-console.log(score)
+// Event listener for the next button
+nextButton.addEventListener('click', () => {
+    const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+    
+    if (selectedAnswer) {
+        const selectedValue = selectedAnswer.value;
+        const correctAnswer = questions[currentQuestion].correctAnswer;
+        
+        if (selectedValue === correctAnswer) {
+            score++;
+        }
+        
+        currentQuestion++;
+        displayQuestion();
+        
+        // Clear the radio button selection
+        selectedAnswer.checked = false;
+    } else {
+        alert("Please select an answer before proceeding.");
+    }
+    
+    // Check if the quiz has ended
+    if (currentQuestion === questions.length) {
+        endQuiz();
+    }
+});
+
+console.log(score);
+
 function startTimer() {
     const interval = setInterval(function () {
         timer--;
@@ -80,20 +90,6 @@ function endQuiz() {
     document.getElementById('question-container').style.display = 'none';
     nextButton.style.display = 'none';
 }
-
-nextButton.addEventListener('click', function () {
-    const selectedOption = document.querySelector('input[name="answer"]:checked');
-    if (selectedOption) {
-        const selectedAnswer = parseInt(selectedOption.value);
-        if (selectedAnswer === questions[currentQuestion].correctAnswer) {
-            // Handle correct answer logic here
-            // For example, you can increment a score variable.
-        }
-        currentQuestion++;
-        displayQuestion();
-        selectedOption.checked = false;
-    }
-});
 
 displayQuestion();
 startTimer();

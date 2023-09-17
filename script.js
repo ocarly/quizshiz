@@ -2,22 +2,22 @@ const questions = [
     {
         question: "What does 'DOM' stand for in JavaScript?",
         options: ["Document Object Model", "Data Object Model", "Database Object Model", "Document Oriented Model"],
-        correctAnswer: "Document Object Model"
+        correctAnswer: "0"
     },
     {
         question: "Which method is used to add new elements to an array in JavaScript?",
         options: ["push()", "append()", "insert()", "add()"],
-        correctAnswer: "push()"
+        correctAnswer: "0"
     },
     {
         question: "What is a closure in JavaScript?",
         options: ["A way to lock a variable", "A private function", "A function that has access to its outer scope variables", "A function with no return value"],
-        correctAnswer: "A function that has access to its outer scope variables"
+        correctAnswer: "2"
     },
     {
         question: "What is the purpose of 'console.log()' in JavaScript?",
         options: ["Display a message box", "Print text to the console", "Open a new web page", "Create a pop-up window"],
-        correctAnswer: "Print text to the console"
+        correctAnswer: "1"
     }
 ];
 
@@ -30,8 +30,15 @@ const timerElement = document.getElementById('timer');
 const nextButton = document.getElementById('next-button');
 const inputThings = document.querySelectorAll(`input[name="answer"]`)
 const userAnswer = document.querySelector(`input[value]`)
+const endScreen = document.querySelector(".end-view")
+const inputBox = document.querySelector("#initials")
+const endNotification = document.querySelector("#end-notification")
+const userScoreEl = document.querySelector("#lil-score")
+
 
 function displayQuestion() {
+    endScreen.style.display = 'none';
+
     if (currentQuestion < questions.length) {
         questionElement.textContent = questions[currentQuestion].question;
         const options = questions[currentQuestion].options;
@@ -47,14 +54,21 @@ function displayQuestion() {
 
 // Event listener for the next button
 nextButton.addEventListener('click', () => {
-    const selectedAnswer = document.querySelector('input[name="answer"]:checked');
-    
+    const selectedAnswer = document.querySelector('input[name="options"]:checked');
+    console.log(selectedAnswer)
     if (selectedAnswer) {
         const selectedValue = selectedAnswer.value;
+        console.log("selectedAnswer" , selectedValue)
         const correctAnswer = questions[currentQuestion].correctAnswer;
-        
+        console.log("correctAnswer" , correctAnswer)
         if (selectedValue === correctAnswer) {
-            score++;
+            console.log(selectedValue, correctAnswer)
+            score+= 50;
+            console.log(score)
+        }
+
+        if (selectedValue !== correctAnswer){
+            timer -= 10;
         }
         
         currentQuestion++;
@@ -67,12 +81,12 @@ nextButton.addEventListener('click', () => {
     }
     
     // Check if the quiz has ended
-    if (currentQuestion === questions.length) {
+    if (currentQuestion >= questions.length) {
         endQuiz();
     }
 });
 
-console.log(score);
+
 
 function startTimer() {
     const interval = setInterval(function () {
@@ -86,7 +100,10 @@ function startTimer() {
 }
 
 function endQuiz() {
-    questionElement.textContent = 'Quiz completed!';
+    console.log("running?")
+    endScreen.style.display = "block"
+    endNotification.textContent = 'Quiz completed!';
+    userScoreEl.textContent = "You Scored: " + score
     document.getElementById('question-container').style.display = 'none';
     nextButton.style.display = 'none';
 }

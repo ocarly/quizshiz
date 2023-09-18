@@ -3,39 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <title>Quiz-Shizzzz</title>
+    <title>JavaScript Quiz</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="quiz-container">
+    <div class="quiz-container">
         <h1>JavaScript Quiz</h1>
-        <p>Time Remaining: <span id="timer">60</span> seconds</p>
-        <form id="question-container">
+        <p>Time Left: <span id="timer">60</span> seconds</p>
+        <div id="question-container">
             <p id="question"></p>
-            <label class="option-label" for="option1">which</label>
-            <input type="radio" name="options" value="0" id="option1"><br>
-            <label class="option-label" for="option2">one</label>
-            <input type="radio" name="options" value="1" id="option2"><br>
-            <label class="option-label" for="option3" >is</label>
-            <input type="radio" name="options" value="2" id="option3"><br>
-            <label class="option-label" for="option4">it</label>
-            <input type="radio" name="options" value="3" id="option4"><br>
-        </form>
-        <section class="end-view">
-            <p id="end-notification"></p>
-            <div class="score-wrap">
-               <p id="lil-score"></p>
-            </div>            
-            <form id="end-form">
-                <label for="end-initials">initials</label>
-                <input type="text" name="initials" id="end-initials">
-                <button id="score button">submit</button>
-            </form>
-        </section>
-        
-
-        <button id="next-button">Next</button>
+            <ul id="choices">
+                <!-- Choices will be generated using JavaScript -->
+            </ul>
+        </div>
+        <button id="start-btn">Start Quiz</button>
+        <div id="result"></div>
     </div>
-    <script src="./script.js"></script>
+    <div class="high-score-container">
+        <h2>High Score</h2>
+        <p>High Score: <span id="high-score">0</span> seconds</p>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>

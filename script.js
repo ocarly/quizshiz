@@ -90,12 +90,17 @@ function endQuiz() {
     clearInterval(timer);
     timerDisplay.textContent = "0 seconds";
 
-    if (timeLeft > highScore) {
+    if (timeLeft < highScore) {
         highScore = timeLeft;
         localStorage.setItem("highScore", highScore);
     }
 
-    highScoreElement.textContent = highScore + " seconds";
+    if (highScore === Infinity) {
+        highScoreElement.textContent = "No high score";
+    } else {
+        highScoreElement.textContent = highScore + " seconds";
+    }
+
     questionContainer.style.display = "none";
     resultElement.textContent = "Quiz Completed!";
 }

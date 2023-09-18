@@ -33,6 +33,7 @@ const questionElement = document.getElementById("question");
 const choicesElement = document.getElementById("choices");
 const resultElement = document.getElementById("result");
 const highScoreElement = document.getElementById("high-score");
+// const inputBox = document.querySelector("#initials")
 
 startButton.addEventListener("click", startQuiz);
 

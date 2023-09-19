@@ -8,3 +8,6 @@ https://ocarly.github.io/quizshiz/
 
 
 git clone git@github.com:ocarly/quizshiz.git
+
+![javscript](https://github.com/ocarly/quizshiz/assets/141790916/be2ecc66-036a-49fd-bb59-71a5a2367d1a)
+
